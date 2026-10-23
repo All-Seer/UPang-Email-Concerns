@@ -37,11 +37,7 @@ login.php         Admin login
 
 Database `users`, table `student_concerns`: first, middle and last name, student ID, personal email, PHINMAED email, concern text, submission date, status (`Pending` / `Resolved`).
 
-Note: `api/setup_database.php` does not create the `phinmaed_email` column yet. If submissions fail, add it manually:
-
-```sql
-ALTER TABLE student_concerns ADD COLUMN phinmaed_email VARCHAR(100) NOT NULL AFTER personal_email;
-```
+`api/setup_database.php` is safe to re-run. It also upgrades tables from older versions (adds `phinmaed_email`, makes `middle_name` optional).
 
 ## Setup
 
@@ -49,8 +45,15 @@ ALTER TABLE student_concerns ADD COLUMN phinmaed_email VARCHAR(100) NOT NULL AFT
 2. Put the project folder in `htdocs` as `UPang-Email-Concerns`.
 3. Set credentials in `config/db.php`.
 4. Open `http://localhost/UPang-Email-Concerns/api/setup_database.php` once to create the database and table.
-5. Open `http://localhost/UPang-Email-Concerns/` for the form, `/login.php` for admin.
+5. Set the admin login (see below).
+6. Open `http://localhost/UPang-Email-Concerns/` for the form, `/login.php` for admin.
 
 ## Admin login
 
-Credentials are hardcoded in `authenticate.php`. Change them before any real deployment.
+Credentials are not stored in the code. Copy `config/admin.example.php` to `config/admin.php` (git-ignored), set a username, and generate a password hash:
+
+```
+php -r "echo password_hash('your-password', PASSWORD_DEFAULT), PHP_EOL;"
+```
+
+Paste the hash into `password_hash` in `config/admin.php`.
