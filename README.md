@@ -1,20 +1,20 @@
-# WebProject-v2
+# UPang-Email-Concerns
 
-Student concerns system. Students submit concerns through a form. Admins log in to review, resolve and manage them.
+PHINMA UPang Urdaneta Student Email Concerns. A web portal where students submit email-related concerns, and the admin office logs in to review, resolve and manage them.
 
 ## Features
 
 **Student side**
-- Concern submission form (Material Design Web Components)
+- Concern submission form with name, student ID, personal email and PHINMAED email (Material Design Web Components)
 
 **Admin side**
 - Login (`login.php`, `authenticate.php`)
-- Dashboard
+- Dashboard of all concerns
 - Pending concerns
 - This week's concerns
-- Resolved history
-- Manage students
-- Search, update status, delete concerns
+- History of resolved concerns
+- Manage concerns
+- Search, update status, delete
 
 ## Tech stack
 
@@ -35,11 +35,22 @@ login.php         Admin login
 
 ## Database
 
-Database `users`, table `student_concerns`: name fields, student ID, email, concern text, submission date, status (`Pending` / `Resolved`).
+Database `users`, table `student_concerns`: first, middle and last name, student ID, personal email, PHINMAED email, concern text, submission date, status (`Pending` / `Resolved`).
+
+Note: `api/setup_database.php` does not create the `phinmaed_email` column yet. If submissions fail, add it manually:
+
+```sql
+ALTER TABLE student_concerns ADD COLUMN phinmaed_email VARCHAR(100) NOT NULL AFTER personal_email;
+```
 
 ## Setup
 
 1. Install XAMPP/WAMP (PHP + MySQL).
-2. Set credentials in `config/db.php`.
-3. Open `http://localhost/WebProject-v2/api/setup_database.php` once to create the database and table.
-4. Open `http://localhost/WebProject-v2/` for the form, `/login.php` for admin.
+2. Put the project folder in `htdocs` as `UPang-Email-Concerns`.
+3. Set credentials in `config/db.php`.
+4. Open `http://localhost/UPang-Email-Concerns/api/setup_database.php` once to create the database and table.
+5. Open `http://localhost/UPang-Email-Concerns/` for the form, `/login.php` for admin.
+
+## Admin login
+
+Credentials are hardcoded in `authenticate.php`. Change them before any real deployment.
