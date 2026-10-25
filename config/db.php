@@ -1,19 +1,9 @@
 <?php
-$host = "localhost";
-$dbname = "users"; 
-$user = "root";    
-$pass = "";       
-
-try {
-    $pdo = new PDO(
-        "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
-        $user,
-        $pass,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        ]
-    );
-} catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
-}
+// Database settings. Edit these for your machine (XAMPP default: root, no password).
+return [
+    'host'     => 'localhost',
+    'port'     => 3306,
+    'dbname'   => 'users',
+    'user'     => 'root',
+    'pass'     => '',
+];
